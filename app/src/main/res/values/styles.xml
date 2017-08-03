@@ -1,0 +1,94 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="style_tab_icons">
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:layout_marginBottom">16dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">28dp</item>
+        <item name="android:layout_height">28dp</item>
+    </style>
+
+    <style name="style_title_text" parent="wrap_wrap">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/text_size_24dp</item>
+        <item name="android:textStyle">italic</item>
+    </style>
+
+    <style name="style_horizontal_line" parent="match_wrap">
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/white</item>
+    </style>
+
+    <style name="style_heading_text" parent="wrap_wrap">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/text_size_16dp</item>
+        <item name="android:textColor">@color/color_light_green</item>
+    </style>
+
+    <style name="style_description_note" parent="wrap_wrap">
+        <item name="android:layout_marginTop">@dimen/margin_10dp</item>
+    </style>
+
+    <style name="lay_description" parent="match_wrap">
+        <item name="android:padding">8dp</item>
+    </style>
+
+    <style name="style_drop_down_icon" parent="wrap_wrap">
+        <item name="android:layout_width">28dp</item>
+        <item name="android:layout_height">28dp</item>
+        <item name="android:layout_alignParentRight">true</item>
+    </style>
+
+    <style name="title_text" parent="wrap_wrap">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_margin">@dimen/margin_20dp</item>
+    </style>
+
+    <style name="subtitle_text" parent="match_wrap">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:padding">12dp</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:layout_marginTop">@dimen/margin_4dp</item>
+        <item name="android:layout_marginBottom">@dimen/margin_4dp</item>
+    </style>
+
+    <style name="style_btn_post" parent="wrap_wrap">
+
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@color/color_light_green</item>
+    </style>
+
+    <style name="style_tv_time" parent="wrap_wrap">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:layout_marginRight">8dp</item>
+    </style>
+
+    <style name="progress">
+        <item name="android:layout_width">38dp</item>
+        <item name="android:layout_height">38dp</item>
+        <item name="android:indeterminateTint" tools:targetApi="lollipop">@color/color_light_green
+        </item>
+        <item name="android:tint">@color/color_light_green</item>
+        <item name="android:progressBackgroundTint" tools:targetApi="lollipop">
+            @color/color_light_green
+        </item>
+    </style>
+
+    <style name="MyTabLayoutTextAppearance" parent="TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse">
+        <item name="android:textSize">16dp</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+</resources>

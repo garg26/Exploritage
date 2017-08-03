@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/lay_description"
+    android:layout_margin="10dp"
+    android:background="@drawable/lay_rectangle_bg">
+
+    <simplifii.framework.widgets.CustomFontTextView
+        android:id="@+id/tv_title"
+        style="@style/style_heading_text"
+        android:padding="2dp"
+        android:textSize="18dp"
+        app:customFont="@string/helvetica_font" />
+
+    <ImageView
+        android:id="@+id/iv_drop_down_arrow"
+        style="@style/style_drop_down_icon"
+        android:padding="4dp"
+        android:src="@mipmap/ic_arrow_down" />
+
+    <simplifii.framework.widgets.CustomFontTextView
+        android:id="@+id/tv_description"
+        style="@style/style_description_note"
+        android:layout_below="@+id/tv_title"
+        android:text="@string/short_description"
+        android:visibility="gone"
+        app:customFont="@string/helvetica_font" />
+
+</RelativeLayout>

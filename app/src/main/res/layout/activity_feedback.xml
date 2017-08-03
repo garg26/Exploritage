@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        style="@style/toolbar"
+        android:background="@color/color_light_green" />
+
+
+    <simplifii.framework.widgets.CustomFontTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_8dp"
+        android:layout_marginTop="@dimen/margin_8dp"
+        android:text="Feedback"
+        android:textSize="16dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_8dp"
+        android:background="@drawable/shape_rectangle">
+
+        <simplifii.framework.widgets.CustomFontEditText
+            android:id="@+id/et_feedback"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/full_transparent"
+            android:hint="Write here..."
+            android:minLines="3"
+            android:paddingLeft="8dp" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_post_feedback"
+        android:layout_height="40dp"
+        android:layout_marginTop="@dimen/margin_20"
+        style="@style/style_btn_post"
+        android:layout_gravity="center"
+        android:text="post" />
+
+
+</LinearLayout>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/lay_description"
+    android:layout_margin="10dp"
+    android:background="@drawable/lay_rectangle_bg">
+
+    <simplifii.framework.widgets.CustomFontTextView
+        android:id="@+id/tv_how_to_use"
+        style="@style/style_description_note"
+        android:layout_below="@+id/tv_title"
+        android:text=""
+        android:textSize="16dp"
+        android:visibility="visible"
+        app:customFont="@string/helvetica_font" />
+
+</RelativeLayout>

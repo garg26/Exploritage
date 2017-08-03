@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/match_match"
+    android:background="@color/off_white">
+
+    <RelativeLayout style="@style/match_match">
+
+        <LinearLayout
+            android:id="@+id/lay_view_container"
+            style="@style/match_wrap"
+            android:orientation="vertical">
+
+            <!--<include layout="@layout/view_row_history" />-->
+
+        </LinearLayout>
+
+    </RelativeLayout>
+</ScrollView>

@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">Exploritage</string>
+    <string name="city_name">Delhi</string>
+    <string name="guide"> Audio Guide</string>
+    <string name="history">History</string>
+    <string name="location">Map</string>
+    <string name="short_description"> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</string>
+    <string name="title_guide_des">Short Description</string>
+    <string name="about">About</string>
+    <string name="thingstodo">Things To Do</string>
+    <string name="how_to_reach">How To Reach</string>
+    <string name="no_response">No Response</string>
+    <string name="available_city_guides">Available City Guides</string>
+    <string name="places">Places</string>
+    <string name="welcome_to_exploritage">Welcome to Exploritage</string>
+    <string name="home">Home</string>
+    <string name="feedback">Feedback</string>
+    <string name="shareapp">ShareApp</string>
+    <string name="audio_guide">Audio Guide</string>
+    <string name="about_place">About</string>
+    <string name="welcome_text">Welcome, Voice of Heritage can take you around below heritage monuments</string>
+    <string name="how_to_use">How To Use</string>
+    <string name="heritage_personal_guide">Your Personal Heritage guide</string>
+    <string name="no_sitemap_available">No SiteMap available</string>
+    <string name="loading_site_map">Loading site map</string>
+    <string name="welcome_to_enchanting">Welcome to enchanting</string>
+    <string name="below_attractions">Below are the attractions that you can explore</string>
+    <string name="about_exploritage">About</string>
+    <string name="helvetica_font">helvetica_normal.ttf</string>
+    <string name="site_map">Map</string>
+    <string name="about_title">ABOUT</string>
+    <string name="subtitle_pesonal_guide">YOUR PERSONAL HERITAGE GUIDE</string>
+</resources>
