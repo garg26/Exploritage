@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="400dp"
+    >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="18dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/curve_shape"
+        android:orientation="vertical"
+        android:padding="2dp" >
+
+        <simplifii.framework.widgets.CustomFontTextView
+            style="@style/tv_style_white"
+            android:text="@string/you_chose_hampi"
+            android:textSize="16dp"
+
+            android:layout_height="48dp"
+            android:background="@drawable/textview_top_curve_shape"
+            />
+
+    <LinearLayout
+        android:id="@+id/ll_dialog_body_white"
+        style="@style/ll_bg_white">
+        <simplifii.framework.widgets.CustomFontTextView
+            style="@style/tv_style_black"
+            android:text="@string/brief_note_on_the_pack_details"
+            />
+        <simplifii.framework.widgets.CustomFontTextView
+            style="@style/tv_style_black"
+            android:textSize="18dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/final_price_rs_88888888"
+            android:paddingBottom="8dp"
+            />
+        <simplifii.framework.widgets.CustomFontButton
+            style="@style/btn_style"
+            android:background="@drawable/button_shape"
+            android:layout_width="wrap_content"
+            android:layout_height="64dp"
+            android:text="@string/buy"
+            android:layout_gravity="center"
+            />
+
+    </LinearLayout>
+    <LinearLayout
+        style="@style/ll_dialog_bg_grey"
+        android:orientation="vertical" >
+
+        <simplifii.framework.widgets.CustomFontTextView
+            style="@style/tv_style_black"
+            android:text="@string/you_could_also_choose_from_our_following_packages"
+            android:textColor="@color/dark_gray"
+            android:layout_marginBottom="@dimen/margin_10dp"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="10">
+            <simplifii.framework.widgets.CustomFontButton
+                style="@style/button_black_shape"
+                android:text="@string/package_1_rs_888"
+
+                />
+            <simplifii.framework.widgets.CustomFontButton
+                style="@style/button_black_shape"
+                android:layout_marginLeft="4dp"
+                android:text="@string/package_2_rs_888"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:orientation="horizontal"
+            android:weightSum="10">
+            <simplifii.framework.widgets.CustomFontButton
+                style="@style/button_black_shape"
+                android:text="@string/package_3_rs_888_n_description"
+                />
+            <simplifii.framework.widgets.CustomFontButton
+                style="@style/button_black_shape"
+                android:layout_marginLeft="4dp"
+                android:text="@string/package_4_rs_888_ndescription"
+                />
+        </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>
+
+    <ImageView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:src="@mipmap/wireframes_final_38" />
+
+
+</RelativeLayout>

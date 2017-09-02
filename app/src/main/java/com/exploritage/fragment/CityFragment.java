@@ -15,6 +15,8 @@ import android.widget.TextView;
 import com.exploritage.R;
 import com.exploritage.activity.SiteDescriptionActivity;
 import com.exploritage.model.responses.CityDetail;
+import com.exploritage.model.responses.Datum;
+import com.exploritage.model.responses.place.PlaceData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,9 +37,13 @@ public class CityFragment extends BaseFragment implements CustomPagerAdapter.Pag
     private String audioFileUrl;
     private String placeDescriptionUrl;
     private String mapUrl;
+    private PlaceData placeData;
 
     private TabLayout tabLayout;
     private List<Integer> tabIcons;
+    private String cityName;
+    private String sitemap;
+    private Datum city;
 
     public static Fragment getInstance() {
         CityFragment cityFragment = new CityFragment();
@@ -49,7 +55,9 @@ public class CityFragment extends BaseFragment implements CustomPagerAdapter.Pag
         Bundle arguments = getArguments();
         if (arguments != null) {
 
-            cityDetailHolder = (CityDetail) arguments.getSerializable(AppConstants.BUNDLE_KEYS.CITY_DETAIL);
+            placeData = (PlaceData) arguments.getSerializable(AppConstants.BUNDLE_KEYS.PLACE_DATA);
+            city = (Datum) arguments.getSerializable(AppConstants.BUNDLE_KEYS.CITY_DETAIL);
+            cityDetailHolder = placeData.getCityDetailObject();
             if (cityDetailHolder != null) {
                 audioImageUrl = cityDetailHolder.getAudioimage();
                 audioFileUrl = cityDetailHolder.getAudiourl();
@@ -58,14 +66,14 @@ public class CityFragment extends BaseFragment implements CustomPagerAdapter.Pag
             }
         }
         initTabs();
-        tabLayout = (TabLayout) findView(R.id.tab_layout_city);
-        ViewPager viewPager = (ViewPager) findView(R.id.viewpager_city);
+        tabLayout = (TabLayout) findView(R.id.sliding_tabs);
+        ViewPager viewPager = (ViewPager) findView(R.id.view_pager);
         CustomPagerAdapter pagerAdapter = new CustomPagerAdapter(getFragmentManager(), tabsList, this);
         viewPager.setAdapter(pagerAdapter);
         viewPager.setOffscreenPageLimit(2);
         tabLayout.setupWithViewPager(viewPager);
-        changeTabsFont();
-        setupTabIcons();
+        //changeTabsFont();
+        //setupTabIcons();
     }
 
     private void changeTabsFont() {
@@ -86,8 +94,8 @@ public class CityFragment extends BaseFragment implements CustomPagerAdapter.Pag
 
     private void initTabs() {
         tabsList = new ArrayList<>();
-        tabsList.add(getResources().getString(R.string.audio_guide));
         tabsList.add(getResources().getString(R.string.about));
+        tabsList.add(getResources().getString(R.string.audio_guide));
         tabsList.add(getResources().getString(R.string.location));
     }
 
@@ -108,21 +116,22 @@ public class CityFragment extends BaseFragment implements CustomPagerAdapter.Pag
 
     @Override
     public int getViewID() {
-        return R.layout.fragment_city;
+        return R.layout.layout_tablayout;
     }
 
     @Override
     public Fragment getFragmentItem(int position, Object listItem) {
         switch (position) {
             case 0:
-                return GuideFragment.getInstance(audioFileUrl, audioImageUrl);
-            case 1:
                 return HistoryFragment.getInstance(placeDescriptionUrl);
+            case 1:
+                return GuideFragment.getInstance(audioFileUrl, audioImageUrl, city, cityDetailHolder);
             case 2:
                 return SubsitelocationFragment.getInstance(mapUrl);
-            default:
-                return GuideFragment.getInstance(audioFileUrl, audioImageUrl);
+
+
         }
+        return null;
     }
 
     @Override

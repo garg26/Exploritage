@@ -1,13 +1,17 @@
 package com.exploritage.fragment;
 
 import android.Manifest;
+import android.app.Dialog;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -16,18 +20,26 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.exploritage.R;
+import com.exploritage.model.DownloadDestinationInformation;
+import com.exploritage.model.DownloadCityInformation;
+import com.exploritage.model.responses.CityDetail;
+import com.exploritage.model.responses.Datum;
+import com.exploritage.sqlite.CityDetaildatabase;
+import com.exploritage.sqlite.DatabaseHandler;
 import com.exploritage.util.AppBaseFragment;
 import com.exploritage.util.DownloadFileUtil;
-import com.exploritage.util.PicassoUtil;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import hybridmediaplayer.HybridMediaPLayer;
 import simplifii.framework.utility.AppConstants;
+import simplifii.framework.utility.CollectionsUtils;
 import simplifii.framework.utility.Preferences;
 import simplifii.framework.utility.Util;
 
@@ -45,31 +57,42 @@ public class GuideFragment extends AppBaseFragment implements HybridMediaPLayer.
     private double startTime, completeTime;
     private ProgressBar progressBar;
     private boolean isFileDownloaded = false;
-    private RelativeLayout layDownload;
+    //private RelativeLayout layDownload;
     private String audioImageUrl;
     private String audioFileUrl;
     Handler seekHandler = new Handler();
     String filename = "";
+    private DownloadDestinationInformation audioCityInformation;
+    private DatabaseHandler databaseHandler;
+    private Datum city;
+    private CityDetail cityDetail;
+    private CityDetaildatabase cityDetaildatabase;
+    private List<String> audioUrlList = new ArrayList<>();
 
-    public static Fragment getInstance(String audioFileUrl, String audioImageUrl) {
+    public static Fragment getInstance(String audioFileUrl, String audioImageUrl, Datum city, CityDetail cityDetail) {
         GuideFragment guideFragment = new GuideFragment();
         guideFragment.audioFileUrl = audioFileUrl;
         guideFragment.audioImageUrl = audioImageUrl;
+        guideFragment.city = city;
+        guideFragment.cityDetail = cityDetail;
         return guideFragment;
     }
 
     @Override
     public void initViews() {
-        layDownload = (RelativeLayout) findView(R.id.lay_download);
+        //layDownload = (RelativeLayout) findView(R.id.lay_download);
+
+        databaseHandler = new DatabaseHandler(getActivity());
+        cityDetaildatabase = new CityDetaildatabase(getActivity());
         tvDownload = (TextView) findView(R.id.tv_downloading);
         progressBar = (ProgressBar) findView(R.id.progressbar);
         ivSubsite = (ImageView) findView(R.id.iv_subsite);
-        lay_Play_Pause = (RelativeLayout) findView(R.id.lay_play_control);
+        //lay_Play_Pause = (RelativeLayout) findView(R.id.lay_play_control);
         viewContainer = (LinearLayout) findView(R.id.lay_view_container);
         String title = getResources().getString(R.string.title_guide_des);
         ivDownloadAudio = (ImageView) findView(R.id.iv_download);
         ivPlay_Pause = (ImageView) findView(R.id.iv_play_pause);
-        iv_Pause = (ImageView) findView(R.id.iv_pause);
+        //  iv_Pause = (ImageView) findView(R.id.iv_pause);
         tvStartTime = (TextView) findView(R.id.tv_start_time);
         tvCompleteTime = (TextView) findView(R.id.tv_end_time);
         seekBar = (SeekBar) findView(R.id.seekbar);
@@ -80,7 +103,7 @@ public class GuideFragment extends AppBaseFragment implements HybridMediaPLayer.
         mediaPlayer.setOnErrorListener(this);
 
         mediaPlayer.setOnPreparedListener(this);
-        setOnClickListener(R.id.lay_download, R.id.lay_play_control);
+        setOnClickListener(R.id.iv_download, R.id.iv_play_pause);
         setAudioPlayerBackground();
         setPlayerDataSource();
 //        setGuideDescription(title);
@@ -88,7 +111,7 @@ public class GuideFragment extends AppBaseFragment implements HybridMediaPLayer.
 
     private void setAudioPlayerBackground() {
         if (!TextUtils.isEmpty(audioImageUrl)) {
-            PicassoUtil.loadImage(getActivity(), audioImageUrl, ivSubsite, 0);
+            Picasso.with(getActivity()).load(audioImageUrl).into(ivSubsite);
         } else {
         }
     }
@@ -108,22 +131,46 @@ public class GuideFragment extends AppBaseFragment implements HybridMediaPLayer.
 
     private void setPlayerDataSource() {
         try {
-            if (audioFileUrl != null) {
-                if (isAudioFilePresentOnExternalStorage()) {
-                    String path = Preferences.getData(AppConstants.PREF_KEYS.KEY_AUDIO_FILE + audioFileUrl, "");
-                    isFileDownloaded = true;
-//                  showToast("from Local");
-                    ivDownloadAudio.setImageResource(R.mipmap.ic_successful);
-                    mediaPlayer.setDataSource(new File(path).toString());
-                    mediaPlayer.prepare();
-                } else {
-                    isFileDownloaded = false;
-//                    showToast("from Server");
-                    mediaPlayer.setDataSource(audioFileUrl);
-                    mediaPlayer.prepare();
+            if (!TextUtils.isEmpty(audioFileUrl)) {
+                String destinationID = cityDetail.getObjectId();
+                if (!TextUtils.isEmpty(destinationID)) {
+                    DownloadDestinationInformation detailByDestinationID = cityDetaildatabase.getDetailByDestinationID(destinationID);
+                    if (detailByDestinationID != null) {
+                        String audioFilePath = detailByDestinationID.getAudioFilePath();
+                        File file = new File(audioFilePath);
+                        if (!TextUtils.isEmpty(audioFilePath) && file.exists()) {
+                            isFileDownloaded = true;
+                            ivDownloadAudio.setImageResource(R.mipmap.ic_successful);
+                            mediaPlayer.setDataSource(new File(audioFilePath).toString());
+                            mediaPlayer.prepare();
+                        } else {
+                            isFileDownloaded = false;
+                            mediaPlayer.setDataSource(audioFileUrl);
+                            mediaPlayer.prepare();
+                        }
+                    } else {
+                        isFileDownloaded = false;
+                        mediaPlayer.setDataSource(audioFileUrl);
+                        mediaPlayer.prepare();
+                    }
                 }
-                setDownloadAttrs();
             }
+//                if (isAudioFilePresentOnExternalStorage()) {
+//                    String path = Preferences.getData(AppConstants.PREF_KEYS.KEY_AUDIO_FILE + audioFileUrl, "");
+//                    isFileDownloaded = true;
+////                  showToast("from Local");
+//                    ivDownloadAudio.setImageResource(R.mipmap.ic_successful);
+//                    mediaPlayer.setDataSource(new File(path).toString());
+//                    mediaPlayer.prepare();
+//                }
+//                else {
+//                    isFileDownloaded = false;
+////                    showToast("from Server");
+//                    mediaPlayer.setDataSource(audioFileUrl);
+//                    mediaPlayer.prepare();
+//                }
+            setDownloadAttrs();
+
         } catch (OutOfMemoryError e) {
             e.printStackTrace();
         }
@@ -131,25 +178,25 @@ public class GuideFragment extends AppBaseFragment implements HybridMediaPLayer.
 
     }
 
-    private boolean isAudioFilePresentOnExternalStorage() {
-        String path = Preferences.getData(AppConstants.PREF_KEYS.KEY_AUDIO_FILE + audioFileUrl, "");
-        if (!TextUtils.isEmpty(path)) {
-            File audioFile = new File(path);
-            if (audioFile.exists())
-                return true;
-            else
-                return false;
-        } else
-            return false;
-    }
+//    private boolean isAudioFilePresentOnExternalStorage() {
+//        String path = Preferences.getData(AppConstants.PREF_KEYS.KEY_AUDIO_FILE + audioFileUrl, "");
+//        if (!TextUtils.isEmpty(path)) {
+//            File audioFile = new File(path);
+//            if (audioFile.exists())
+//                return true;
+//            else
+//                return false;
+//        } else
+//            return false;
+//    }
 
     private void setDownloadAttrs() {
         if (isFileDownloaded) {
             ivDownloadAudio.setImageResource(R.mipmap.ic_successful);
-            tvDownload.setText("Downloaded");
+            //tvDownload.setText("Downloaded");
         } else {
             ivDownloadAudio.setImageResource(R.mipmap.ic_download);
-            tvDownload.setText("Download");
+            //tvDownload.setText("Download");
         }
     }
 
@@ -157,13 +204,14 @@ public class GuideFragment extends AppBaseFragment implements HybridMediaPLayer.
     public void onClick(View v) {
         super.onClick(v);
         switch (v.getId()) {
-            case R.id.lay_play_control:
+            case R.id.iv_play_pause:
                 playAudio();
                 break;
-            case R.id.lay_subsite_image_container:
-                playAudio();
-                break;
-            case R.id.lay_download:
+//            case R.id.iv_pause:
+//                playAudio();
+//                break;
+            case R.id.iv_download:
+                // showAlterDialog();
                 if (isFileDownloaded == false) {
                     if (Util.isConnectingToInternet(getActivity()))
                         downloadAudioFile();
@@ -177,6 +225,15 @@ public class GuideFragment extends AppBaseFragment implements HybridMediaPLayer.
 
                 break;
         }
+    }
+
+
+    private void showAlterDialog() {
+        Dialog dialog = new Dialog(getActivity());
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.activity_dialog_want_to_download);
+        dialog.show();
     }
 
     private void downloadAudioFile() {
@@ -207,9 +264,10 @@ public class GuideFragment extends AppBaseFragment implements HybridMediaPLayer.
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            tvDownload.setText("Downloading...");
+//            tvDownload.setVisibility(View.VISIBLE);
+//            tvDownload.setText("Downloading...");
             ivDownloadAudio.setVisibility(View.GONE);
-            progressBar.setVisibility(View.VISIBLE);
+//            progressBar.setVisibility(View.VISIBLE);
 
         }
 
@@ -229,16 +287,31 @@ public class GuideFragment extends AppBaseFragment implements HybridMediaPLayer.
 
             if (!TextUtils.isEmpty(result)) {
                 isFileDownloaded = true;
-                tvDownload.setText("Downloaded");
-                progressBar.setVisibility(View.GONE);
+                //tvDownload.setText("Downloaded");
+                //progressBar.setVisibility(View.GONE);
                 ivDownloadAudio.setImageResource(R.mipmap.ic_successful);
                 ivDownloadAudio.setVisibility(View.VISIBLE);
 
                 String filePath = result;
-                if (!TextUtils.isEmpty(audioFileUrl))
-                    Preferences.saveData(AppConstants.PREF_KEYS.KEY_AUDIO_FILE + audioFileUrl, filePath);
-            } else {
+//                if (!TextUtils.isEmpty(audioFileUrl) && city != null)
+//                    Preferences.saveData(AppConstants.PREF_KEYS.KEY_AUDIO_FILE + audioFileUrl, filePath);
+                String cityname = city.getCityname();
+                String cityID = city.getObjectId();
+                String image_url = city.getImage_url();
+                if (!TextUtils.isEmpty(cityID) && !TextUtils.isEmpty(cityID) && !TextUtils.isEmpty(image_url)) {
+                    DownloadCityInformation cityInformation = new DownloadCityInformation(cityID, cityname, image_url);
+                    databaseHandler.insert(cityInformation);
+                }
+                String objectId = cityDetail.getObjectId();
+                String destinationName = cityDetail.getName();
+                String destination_imageUrl = cityDetail.getAudioimage();
+                if (!TextUtils.isEmpty(objectId) && !TextUtils.isEmpty(destinationName) && !TextUtils.isEmpty(destination_imageUrl) && !TextUtils.isEmpty(cityID) && !TextUtils.isEmpty(filePath)) {
+                    DownloadDestinationInformation audioCityInformation = new DownloadDestinationInformation(cityID, objectId, destinationName, destination_imageUrl, filePath);
+                    cityDetaildatabase.insert(audioCityInformation);
+                }
+
             }
+
         }
 
 
@@ -248,12 +321,14 @@ public class GuideFragment extends AppBaseFragment implements HybridMediaPLayer.
     private void playAudio() {
         if (mediaPlayer.isPlaying()) {
             mediaPlayer.pause();
-            iv_Pause.setVisibility(View.INVISIBLE);
-            ivPlay_Pause.setVisibility(View.VISIBLE);
+            ivPlay_Pause.setImageResource(R.mipmap.play_circle_white);
+            // iv_Pause.setVisibility(View.INVISIBLE);
+            // ivPlay_Pause.setVisibility(View.VISIBLE);
         } else {
             if (Util.isConnectingToInternet(getActivity()) || isFileDownloaded) {
-                ivPlay_Pause.setVisibility(View.INVISIBLE);
-                iv_Pause.setVisibility(View.VISIBLE);
+                ivPlay_Pause.setImageResource(R.mipmap.pause_button);
+                //ivPlay_Pause.setVisibility(View.INVISIBLE);
+                //iv_Pause.setVisibility(View.VISIBLE);
                 startPlayer();
             } else
                 showToast("No internet connectivity available");

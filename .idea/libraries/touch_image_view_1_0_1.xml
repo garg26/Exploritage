@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="touch-image-view-1.0.1">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.android/build-cache/534f93425ea7072a701de03ef7df700bd00e4fe6/output/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.android/build-cache/534f93425ea7072a701de03ef7df700bd00e4fe6/output/res" />
+      <root url="file://$USER_HOME$/.android/build-cache/d19be041e9255704846e3b2922a11b5fc0c7ed4c/output/res" />
+      <root url="jar://$USER_HOME$/.android/build-cache/d19be041e9255704846e3b2922a11b5fc0c7ed4c/output/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

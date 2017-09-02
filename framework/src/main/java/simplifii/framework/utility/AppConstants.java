@@ -11,6 +11,8 @@ public interface AppConstants {
 
         int CREATE_ROLE = 1;
 
+        int GOOGLE_SIGHN_IN = 2;
+        int FRAGMENT = 3;
     }
 
 
@@ -18,6 +20,39 @@ public interface AppConstants {
         String EMPTY = "empty";
         String EMAIL = "email";
         String MOBILE = "mobile";
+    }
+
+    public static interface ABOUTUS{
+        String ABOUTUS = "About Us";
+        int ABOUTUS_ID = 1;
+    }
+    public static interface MYAUDIODOWNLOADS{
+        String MYAUDIODOWNLOADS = "My Audio Downloads";
+        int MYAUDIODOWNLOADS_ID = 2;
+    }
+    public static interface PACKAGES{
+        String PACKAGES = "Packages";
+        int PACKAGES_ID = 3;
+    }
+    public static interface MYAUDIOGUIDE{
+        String MYAUDIOGUIDE = "My Audio Guide";
+        int MYAUDIOGUIDE_ID = 4;
+    }
+    public static interface SHAREAPP{
+        String SHAREAPP = "Share App";
+        int SHAREAPP_ID = 5;
+    }
+    public static interface FEEDBACk{
+        String FEEDBACK = "Feedback";
+        int FEEDBACK_ID = 6;
+    }
+    public static interface WHATNEW{
+        String WHATNEW = "What's New";
+        int WHATNEW_ID = 7;
+    }
+    public static interface FAQ{
+        String FAQ = "FAQ's";
+        int FAQ_ID = 8;
     }
 
     interface ERROR_CODES {
@@ -93,6 +128,10 @@ public interface AppConstants {
         String KEY_PLACE_TO_VISIT_JSON = "placeToVisitJson";
         String TEXT_FILE_URL = "textFileUrl";
         String KEY_AUDIO_FILE = "audioFile";
+        String KEY_CITY_DESTINATION_DATA = "city_destination_data";
+        String CITY_NAME = "cityname";
+        String SITE_MAP = "sitemap";
+        String DOWNLOAD_AUDIO_DETAIL = "download_audio_detail";
     }
 
     public static interface BUNDLE_KEYS {
@@ -143,6 +182,7 @@ public interface AppConstants {
         String PLACE_NAME_KEY = "placeNameKey";
         String CITY_DETAIL = "cityDetail";
         String PLACE_DESCRIPTION_URL_KEY = "placeDescription";
+        String AUDIO_DESTINATION_DETAIL = "audio_destination_name";
     }
 
     public static interface FRAGMENT_TYPE {

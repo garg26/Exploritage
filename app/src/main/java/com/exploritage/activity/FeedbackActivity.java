@@ -1,17 +1,13 @@
 package com.exploritage.activity;
 
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
+import android.widget.TextView;
 
 import com.exploritage.R;
 import com.exploritage.model.responses.feedback.FeedbackApiResponse;
-import com.exploritage.util.ApiGenerator;
 
 import simplifii.framework.activity.BaseActivity;
-import simplifii.framework.asyncmanager.HttpParamObject;
 import simplifii.framework.utility.AppConstants;
 
 /**
@@ -20,43 +16,61 @@ import simplifii.framework.utility.AppConstants;
 
 public class FeedbackActivity extends BaseActivity {
 
-    private Button btnFeedback;
-    private EditText etWriteFeedback;
+   // private Button btnFeedback;
+   // private EditText etWriteFeedback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_feedback);
-        initToolBar("Feedback");
-
-        btnFeedback = (Button) findViewById(R.id.btn_post_feedback);
-        etWriteFeedback = (EditText) findViewById(R.id.et_feedback);
-        setOnClickListener(R.id.btn_post_feedback);
+        setContentView(R.layout.activity_feedback_new);
+        initToolBarwithIcon("");
+        TextView tv = (TextView) findViewById(R.id.tv_title_name);
+        tv.setText("FeedBack");
+        setTitle("Feedback");
+        showingBannerAds(R.id.adView);
+       // btnFeedback = (Button) findViewById(R.id.btn_post_feedback);
+       // etWriteFeedback = (EditText) findViewById(R.id.et_feedback);
+        setOnClickListener(R.id.iv_back);
     }
-
 
     @Override
     public void onClick(View v) {
-        super.onClick(v);
-
         switch (v.getId()) {
-            case R.id.btn_post_feedback:
-                postFeedbackApi();
+            case R.id.iv_back:
+                onBackPressed();
                 break;
         }
     }
 
-    private void postFeedbackApi() {
 
-        String feedback = etWriteFeedback.getText().toString();
-        if (!TextUtils.isEmpty(feedback)) {
-            HttpParamObject httpParamObject = ApiGenerator.postFeedbackData(feedback);
-            executeTask(AppConstants.TASK_CODES.POST_FEEDBACK, httpParamObject);
-        } else {
-            showToast("write something");
-            return;
-        }
+    @Override
+    protected void onHomePressed() {
+
     }
+
+
+//    @Override
+//    public void onClick(View v) {
+//        super.onClick(v);
+//
+//        switch (v.getId()) {
+//            case R.id.btn_post_feedback:
+//                postFeedbackApi();
+//                break;
+//        }
+//    }
+
+//    private void postFeedbackApi() {
+//
+//        String feedback = etWriteFeedback.getText().toString();
+//        if (!TextUtils.isEmpty(feedback)) {
+//            HttpParamObject httpParamObject = ApiGenerator.postFeedbackData(feedback);
+//            executeTask(AppConstants.TASK_CODES.POST_FEEDBACK, httpParamObject);
+//        } else {
+//            showToast("write something");
+//            return;
+//        }
+//    }
 
     @Override
     public void onPostExecute(Object response, int taskCode, Object... params) {
@@ -71,7 +85,7 @@ public class FeedbackActivity extends BaseActivity {
 
             FeedbackApiResponse feedbackApiResponse = (FeedbackApiResponse) response;
             showToast("Thank you for your Feedback");
-            etWriteFeedback.setText("");
+            //etWriteFeedback.setText("");
         }
 
     }

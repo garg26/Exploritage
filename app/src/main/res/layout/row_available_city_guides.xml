@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:padding="0dp"
-        android:paddingLeft="4dp"
-        android:paddingRight="4dp">
+    <RelativeLayout style="@style/rl_style">
 
         <ImageView
             android:id="@+id/iv_city_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="@dimen/margin_4dp"
-            android:scaleType="centerCrop"
-             />
+            android:scaleType="centerCrop" />
+
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:id="@+id/image_view"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
+            android:src="@mipmap/wireframes_final_46"/>
 
         <FrameLayout
             style="@style/match_match"
@@ -31,20 +31,62 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginLeft="@dimen/margin_4dp"
-            android:layout_marginRight="@dimen/margin_4dp"
             android:background="@drawable/city_name_background"
-            android:gravity="center">
+            android:padding="@dimen/padding_8dp">
 
             <simplifii.framework.widgets.CustomFontTextView
                 android:id="@+id/tv_city_name"
                 style="@style/style_title_text"
-                app:customFont="@string/font_regular_tiles"
-                android:layout_gravity="center"
-                android:layout_marginBottom="@dimen/margin_8dp"
-                android:layout_marginTop="@dimen/margin_8dp"
-                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="5"
                 android:text="@string/city_name" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@mipmap/white_eye_icon" />
+
+
+
+
+                <simplifii.framework.widgets.CustomFontTextView
+                    style="@style/tv_style_white"
+                    android:textSize="12dp"
+                    android:layout_marginLeft="4dp"
+                    android:text="347"
+                    />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_height="wrap_content">
+
+                    <simplifii.framework.widgets.CustomRatingBar
+                        android:id="@+id/custom_rating_bar"
+                        style="@style/custom_rating_style"
+                        android:layout_centerVertical="true"
+                        />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
         </LinearLayout>
 
     </RelativeLayout>

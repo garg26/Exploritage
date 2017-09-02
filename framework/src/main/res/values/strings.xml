@@ -20,7 +20,7 @@
     <string name="send_invite">Send Invite</string>
     <string name="msg_invitation_success">Invite sent successfully on selected numbers</string>
     <string name="my_teams">My Teams</string>
-    <string name="font_regular">WorkSans-Regular.otf</string>
+    <string name="font_regular">Ubuntu-R.ttf</string>
     <string name="font_regular_tiles">big_noodle_titling.ttf</string>
     <string name="font_light">WorkSans-Light.otf</string>
     <string name="font_extra_light">WorkSans-ExtraLight.otf</string>

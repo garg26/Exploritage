@@ -1,43 +1,36 @@
 package com.exploritage.activity;
 
-import android.Manifest;
-import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
-import android.text.TextUtils;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.TextView;
-
 import com.exploritage.R;
-import com.exploritage.fragment.AboutAppFragment;
-import com.exploritage.fragment.AvailableCityGuidesFragment;
-import com.exploritage.fragment.HowToUseFragment;
-import com.exploritage.model.responses.sharetext.ShareTextClass;
-import com.exploritage.model.responses.sharetext.ShareTextResponse;
-import com.exploritage.util.ApiGenerator;
+import com.exploritage.fragment.DrawerFragment;
+import com.exploritage.fragment.ExploritageDestinationtabFragment;
 import com.exploritage.util.HomeFragmentListener;
-import com.gun0912.tedpermission.PermissionListener;
-import com.gun0912.tedpermission.TedPermission;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import simplifii.framework.activity.BaseActivity;
-import simplifii.framework.asyncmanager.HttpParamObject;
 import simplifii.framework.exceptionhandler.RestException;
-import simplifii.framework.utility.AppConstants;
 
-public class MainActivity extends BaseActivity implements HomeFragmentListener {
+public class MainActivity extends BaseActivity implements HomeFragmentListener, DrawerLayout.DrawerListener  {
 
-    private DrawerLayout drawerLayout;
-    private FrameLayout fragmentContainer;
-    private TextView tvHome, tvFeedback, tvShareApp, tvAbout, tvHowToUse;
+
     private FragmentManager supportFragmentManager;
+    private boolean isDrawerOpen;
+    private DrawerLayout drawerLayout;
+
 
     public boolean isBackPressed() {
         return isBackPressed;
@@ -53,100 +46,104 @@ public class MainActivity extends BaseActivity implements HomeFragmentListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        findViews();
-        Fragment fragment = AvailableCityGuidesFragment.getInstance(this);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         initToolBar("");
-        setTitle(getString(R.string.welcome_to_exploritage));
-        addFragment(fragment, true);
-        setOnClickListener(R.id.tv_feedback, R.id.tv_share_app, R.id.lay_navigation, R.id.tv_about, R.id.tv_how_to_use);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawerlayout);
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
+            toolbar.setNavigationIcon(getDrawable(R.mipmap.wireframes_final_44));
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    drawerOperation(drawerLayout);
+                }
+            });
+        }
+        drawerLayout.addDrawerListener(this);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        addDrawerFragment(toolbar,drawerLayout, fragmentManager);
+        setAddFragment();
+        initNavigationDrawer();
+
+
+        showingBannerAds(R.id.adView);
+        //setOnClickListener(R.id.lay_navigation);
     }
 
     @Override
-    public void onClick(View v) {
-        super.onClick(v);
-        switch (v.getId()) {
-            /*case R.id.tv_home:
-                drawerLayout.closeDrawer(Gravity.LEFT);
-                break;*/
-            case R.id.tv_about:
-//                AboutAppFragment appFragment = AboutAppFragment.getInstance(this);
-//                addFragment(appFragment, false);
-                drawerLayout.closeDrawer(Gravity.LEFT);
-                startNextActivity(AboutActivity.class);
-                break;
-            case R.id.tv_how_to_use:
-//                HowToUseFragment howToUseFragment = HowToUseFragment.getInstance(this);
-//                addFragment(howToUseFragment, false);
-                drawerLayout.closeDrawer(Gravity.LEFT);
-                startNextActivity(HowToUseActivity.class);
-                break;
-            case R.id.tv_feedback:
-                drawerLayout.closeDrawer(Gravity.LEFT);
-                startNextActivity(FeedbackActivity.class);
-                break;
-            case R.id.tv_share_app:
-                drawerLayout.closeDrawer(Gravity.LEFT);
-                onShareApp();
-                break;
-            case R.id.lay_navigation:
-//                drawerLayout.closeDrawer(Gravity.LEFT);
-                break;
-        }
+    protected int getHomeIcon() {
+        return R.mipmap.wireframes_final_44;
     }
+
+    private void setAddFragment() {
+        Fragment fragment = ExploritageDestinationtabFragment.getInstance(this);
+        setTitle(getString(R.string.exploritage_destinations));
+        addFragment(fragment, true);
+    }
+
+    private void addDrawerFragment(Toolbar toolbar, DrawerLayout drawerLayout, FragmentManager fragmentManager) {
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open,R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+        DrawerFragment drawerFragment = DrawerFragment.getInstance(drawerLayout);
+        fragmentManager.beginTransaction().replace(R.id.lay_drawer, drawerFragment).commit();
+    }
+
+    private void initNavigationDrawer() {
+        NavigationView navigationView = (NavigationView) findViewById(R.id.lay_drawer);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                return false;
+            }
+        });
+
+    }
+
+
+
+
+
+//    @Override
+//    public void onClick(View v) {
+//        super.onClick(v);
+//        switch (v.getId()) {
+//
+//
+//            case R.id.tv_feedback:
+//                drawerLayout.closeDrawer(Gravity.LEFT);
+//                startNextActivity(FeedbackActivity.class);
+//                break;
+//            case R.id.tv_share_app:
+//                drawerLayout.closeDrawer(Gravity.LEFT);
+//                onShareApp();
+//                break;
+//            case R.id.lay_navigation:
+////                drawerLayout.closeDrawer(Gravity.LEFT);
+//                break;
+//            case R.id.faq_s:
+//                drawerLayout.closeDrawer(Gravity.LEFT);
+//                startNextActivity(FaqActivity.class);
+//                break;
+//
+//        }
+//    }
 
     private void onShareApp() {
-        callGetShareTextApi();
+ //       callGetShareTextApi();
     }
 
-    private void callGetShareTextApi(){
-        HttpParamObject httpParamObject= ApiGenerator.getHttpObjectForShareText();
-        executeTask(AppConstants.TASK_CODES.SHARE_TEXT, httpParamObject);
-    }
+//    private void callGetShareTextApi(){
+//        HttpParamObject httpParamObject= ApiGenerator.getHttpObjectForShareText();
+//        executeTask(AppConstants.TASK_CODES.SHARE_TEXT, httpParamObject);
+//    }
 
     @Override
     public void onBackgroundError(RestException re, Exception e, int taskCode, Object... params) {
         super.onBackgroundError(re, e, taskCode, params);
     }
 
-    @Override
-    public void onPostExecute(Object response, int taskCode, Object... params) {
-        super.onPostExecute(response, taskCode, params);
-        if (null == response) {
-            showToast(getResources().getString(R.string.no_response));
-            return;
-        }
-        switch (taskCode) {
-            case AppConstants.TASK_CODES.SHARE_TEXT:
-                String message="";
-                ShareTextResponse shareTextResponse = (ShareTextResponse) response;
-                if (shareTextResponse != null) {
-                    List<ShareTextClass> data = shareTextResponse.getData();
-                    if (data != null) {
-                        ShareTextClass shareTextObject = data.get(0);
-                        if (shareTextObject != null) {
-                            message = shareTextObject.getTextToShare();
-                        }
 
-                    }
 
-                }
-                if(message == null)
-                    message = "Text I want to share.";
-                Intent share = new Intent(Intent.ACTION_SEND);
-                share.setType("text/plain");
-                share.putExtra(Intent.EXTRA_TEXT, message);
-                startActivity(Intent.createChooser(share, "Share on"));
-
-                break;
-        }
-    }
-
-    private void findViews() {
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        fragmentContainer = (FrameLayout) findViewById(R.id.fragment_container);
-        tvFeedback = (TextView) findViewById(R.id.tv_feedback);
-        tvShareApp = (TextView) findViewById(R.id.tv_share_app);
-    }
 
     @Override
     public void onBackPressed() {
@@ -168,9 +165,19 @@ public class MainActivity extends BaseActivity implements HomeFragmentListener {
         drawerLayout.openDrawer(Gravity.LEFT);
     }
 
+
+
     @Override
-    protected int getHomeIcon() {
-        return R.mipmap.ic_menu;
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_destination, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return super.onOptionsItemSelected(item);
+
     }
 
     @Override
@@ -193,9 +200,37 @@ public class MainActivity extends BaseActivity implements HomeFragmentListener {
 
     @Override
     public void setSubTitle(String subtitle) {
-        if (!TextUtils.isEmpty(subtitle)) {
-            TextView tv = (TextView) findViewById(R.id.tv_toolbar_subtitle);
-            tv.setText(subtitle);
+//        if (!TextUtils.isEmpty(subtitle)) {
+//            TextView tv = (TextView) findViewById(R.id.tv_toolbar_subtitle);
+//            tv.setText(subtitle);
+//        }
+    }
+
+
+    @Override
+    public void onDrawerSlide(View drawerView, float slideOffset) {
+
+    }
+
+    @Override
+    public void onDrawerOpened(View drawerView) {
+        isDrawerOpen = true;
+    }
+
+    @Override
+    public void onDrawerClosed(View drawerView) {
+        isDrawerOpen = false;
+    }
+
+    @Override
+    public void onDrawerStateChanged(int newState) {
+
+    }
+    private void drawerOperation(DrawerLayout drawerLayout) {
+        if (isDrawerOpen) {
+            drawerLayout.closeDrawer(Gravity.LEFT);
+        } else {
+            drawerLayout.openDrawer(Gravity.LEFT);
         }
     }
 }

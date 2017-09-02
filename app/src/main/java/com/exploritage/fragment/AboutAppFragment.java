@@ -27,15 +27,15 @@ public class AboutAppFragment extends BaseFragment implements ReadFromUrlUtil.Pr
     private ReadFromUrlUtil readFromUrlUtil;
     private static AboutAppFragment aboutAppFragment;
 
-    public static AboutAppFragment getInstance(HomeFragmentListener fragmentListener) {
+    public static AboutAppFragment getInstance() {
         aboutAppFragment = new AboutAppFragment();
-        aboutAppFragment.homeFragmentListener = fragmentListener;
-        return aboutAppFragment;
+                return aboutAppFragment;
     }
 
     @Override
     public void initViews() {
 //        homeFragmentListener.setTitle("About");
+
         readFromUrlUtil = new ReadFromUrlUtil(aboutAppFragment);
         tvAboutApp = (TextView) findView(R.id.tv_how_to_use);
         readFromUrlUtil.execute(AppConstants.PAGE_URL.ABOUT_TEXT_URL);
@@ -51,5 +51,9 @@ public class AboutAppFragment extends BaseFragment implements ReadFromUrlUtil.Pr
         if (!TextUtils.isEmpty(s))
             tvAboutApp.setText(s);
     }
+
+
+
+
 
 }

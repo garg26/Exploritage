@@ -3,6 +3,10 @@
     <color name="colorPrimary">#4a86e8</color>
     <color name="colorPrimaryDark">#0000ff</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="color_light_green" >#4a86e8</color>
-    <color name="transparentBlack" >#50000000</color>
+    <color name="color_light_green">#4a86e8</color>
+    <color name="transparentBlack">#50000000</color>
+    <color name="orange">#E5721C</color>
+    <color name="light_grey">#333333</color>
+    <color name="dark_grey">#1A1A1A</color>
+    <color name="black_transparent">#99000000</color>
 </resources>

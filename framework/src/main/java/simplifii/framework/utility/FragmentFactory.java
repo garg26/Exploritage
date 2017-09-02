@@ -1,6 +1,7 @@
 package simplifii.framework.utility;
 
-import android.support.v4.app.Fragment;
+
+import android.app.Fragment;
 
 /**
  * Created by nitin on 31/10/15.

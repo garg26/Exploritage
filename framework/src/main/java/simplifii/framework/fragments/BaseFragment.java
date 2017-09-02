@@ -130,6 +130,16 @@ public abstract class BaseFragment extends Fragment implements
         return v;
 
     }
+    public void initToolBarwithIcon(String title) {
+        toolbar = (Toolbar) findView(R.id.toolbar);
+        activity.setSupportActionBar(toolbar);
+        activity.getSupportActionBar().setTitle(title);
+        activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        activity.getSupportActionBar().setHomeAsUpIndicator(getHomeIcon());
+        activity.getSupportActionBar().setHomeButtonEnabled(true);
+        activity.getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.white));
+    }
 
     public void startNextActivity(Class<? extends Activity> activityClass) {
         Intent i = new Intent(getActivity(), activityClass);
@@ -415,18 +425,21 @@ public abstract class BaseFragment extends Fragment implements
 
     public void initToolBar(String title) {
         toolbar = (Toolbar) findView(R.id.toolbar);
-        activity = (AppCompatActivity) getActivity();
         activity.setSupportActionBar(toolbar);
-        activity.getSupportActionBar().setDisplayShowTitleEnabled(true);
+//        getSupportActionBar().setDisplayShowTitleEnabled(true);
         activity.getSupportActionBar().setTitle(title);
         activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         activity.getSupportActionBar().setHomeAsUpIndicator(getHomeIcon());
         activity.getSupportActionBar().setHomeButtonEnabled(true);
+        activity.getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+//        toolbar.setBackgroundColor(colorCode);
+//        setStatusBarColor(colorCode);
         toolbar.setTitleTextColor(getResources().getColor(R.color.white));
     }
 
     protected int getHomeIcon() {
-        return 0;
+        return R.mipmap.buttons_icons_40;
     }
 
 

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <simplifii.framework.widgets.CustomFontTextView
+        android:id="@+id/tv_likeit_shareit"
+        style="@style/tv_style_black"
+        android:paddingTop="30dp"
+        android:paddingBottom="30dp"
+        android:gravity="left"
+        android:paddingLeft="50dp"
+        android:text="Like it! Share it!"/>
+    <View
+        android:id="@+id/view_orange_line"
+        android:layout_below="@id/tv_likeit_shareit"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/boundary_orange"
+        />
+
+    <LinearLayout
+        style="@style/ll_bg_white"
+        android:padding="0dp"
+        android:orientation="horizontal"
+        android:id="@+id/ll_buttons_line1"
+        android:layout_below="@id/view_orange_line" >
+        <simplifii.framework.widgets.CustomFontButton
+            style="@style/button_share_grey"
+            android:text="@string/message"
+            />
+        <simplifii.framework.widgets.CustomFontButton
+            style="@style/button_share_grey"
+            android:text="@string/bluetooth" />
+        <simplifii.framework.widgets.CustomFontButton
+            style="@style/button_share_grey"
+            android:text="@string/hangouts" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_below="@+id/ll_buttons_line1"
+        style="@style/ll_bg_white"
+        android:padding="0dp"
+        android:orientation="horizontal">
+        <simplifii.framework.widgets.CustomFontButton
+            style="@style/button_share_grey"
+            android:text="@string/google" />
+        <simplifii.framework.widgets.CustomFontButton
+            style="@style/button_share_grey"
+            android:text="@string/gmail" />
+        <simplifii.framework.widgets.CustomFontButton
+            style="@style/button_share_grey"
+            android:text="@string/whatsapp" />
+    </LinearLayout>
+
+
+</RelativeLayout>

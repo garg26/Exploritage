@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout style="@style/rl_style">
+
+        <ImageView
+            android:id="@+id/iv_city_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
+
+        <FrameLayout
+            style="@style/match_match"
+            android:background="@drawable/gradient_image_background">
+
+        </FrameLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/city_name_background"
+            android:padding="@dimen/padding_8dp">
+
+            <simplifii.framework.widgets.CustomFontTextView
+                android:id="@+id/tv_city_name"
+                style="@style/style_title_text"
+                android:layout_width="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="5"
+                android:text="@string/city_name" />
+
+            <ImageView
+                android:id="@+id/iv_delete"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:src="@mipmap/delete"
+                android:scaleType="centerCrop" />
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

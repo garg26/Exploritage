@@ -5,7 +5,7 @@
     <color name="light_gray">#e5e5e5</color>
     <color name="color_desc">#999999</color>
     <color name="bg_gray">#F3F3F3</color>
-    <color name="grey">#fbfbfb</color>
+    <color name="dark_grey">#fbfbfb</color>
     <color name="growth_bg_grey">#fbfbfb</color>
     <color name="off_white">@color/bg_gray</color>
     <color name="off_white_bg">#fdfdfd</color>
@@ -15,4 +15,5 @@
     <color name="black">#000000</color>
     <color name="tranceparent_gray">#5fbcb9b9</color>
     <color name="dark_gray">#454545</color>
+    <color name="orange">#E5721C</color>
 </resources>

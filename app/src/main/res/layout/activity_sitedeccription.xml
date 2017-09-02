@@ -3,37 +3,77 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/black"
+        android:id="@+id/ll_toolbar"
+        android:titleMarginStart="32dp"
+        >
 
     <android.support.v7.widget.Toolbar
         style="@style/toolbar"
-        android:background="@color/color_light_green">
+        android:id="@+id/toolbar"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp"
+        app:contentInsetStartWithNavigation="0dp"
+        android:background="@color/black">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/wireframes_final_40"
+                android:id="@+id/iv_back"
+                />
+
+            <com.lb.auto_fit_textview.AutoResizeTextView
+                android:id="@+id/tv_title_name"
+                style="@style/tv_header"
+
+                android:layout_toRightOf="@+id/iv_back"
+
+
+                />
+
+
+        </RelativeLayout>
+
 
 
     </android.support.v7.widget.Toolbar>
+    </LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/tv_downloading"
-        android:layout_below="@+id/toolbar">
+        android:layout_below="@+id/ll_toolbar"
+        android:layout_above="@+id/adView"
+        >
 
-        <android.support.design.widget.TabLayout
-            android:id="@+id/tab_layout_city"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/color_light_green"
-            app:tabIndicatorColor="@color/white"
-            app:tabSelectedTextColor="@color/white"
-            app:tabTextAppearance="@style/MyTabLayoutTextAppearance"
-            app:tabTextColor="@color/white" />
+        <include
+            layout="@layout/layout_tablayout"/>
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/viewpager_city"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/tab_layout_city" />
     </RelativeLayout>
+
+
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/banner_ad_unit_id">
+    </com.google.android.gms.ads.AdView>
+
 
     <simplifii.framework.widgets.CustomFontTextView
         android:id="@+id/tv_downloading"

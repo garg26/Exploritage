@@ -1,13 +1,17 @@
 package com.exploritage.fragment;
 
 import android.Manifest;
+import android.app.Dialog;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -24,13 +28,8 @@ import com.exploritage.service.SaveImageOnExternalStorageService;
 import com.exploritage.util.ApiGenerator;
 import com.exploritage.util.HomeFragmentListener;
 import com.exploritage.util.PicassoUtil;
-import com.exploritage.util.ReadFromUrlUtil;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
-import com.squareup.picasso.NetworkPolicy;
-import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,12 +47,14 @@ import simplifii.framework.utility.AppConstants;
 public class AvailableCityGuidesFragment extends BaseFragment implements CustomListAdapterInterface, AdapterView.OnItemClickListener {
 
     private CustomListAdapter adapter;
-    private ListView lvAvailableCityGuides;
     private List<Datum> availableCityList;
     private HomeFragmentListener homeFragmentListener;
     private ArrayList<CityDetail> cityDetailList;
     private TextView tvNoCityFound;
     private ProgressBar progressBar;
+
+
+
 
     public static Fragment getInstance(HomeFragmentListener homeFragmentListener) {
         AvailableCityGuidesFragment availableCityGuidesFragment = new AvailableCityGuidesFragment();
@@ -67,9 +68,10 @@ public class AvailableCityGuidesFragment extends BaseFragment implements CustomL
         progressBar.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.color_light_green), PorterDuff.Mode.MULTIPLY);
         tvNoCityFound = (TextView) findView(R.id.tv_empty_list);
         cityDetailList = new ArrayList<>();
+
         //    homeFragmentListener.setTitle(getString(R.string.available_city_guides));
         availableCityList = new ArrayList<>();
-        lvAvailableCityGuides = (ListView) findView(R.id.lv_available_city_guides);
+        ListView lvAvailableCityGuides = (ListView) findView(R.id.lv_available_city_guides);
         LayoutInflater inflater = LayoutInflater.from(getActivity());
 //        View view = inflater.inflate(R.layout.listview_header, null);
 //        lvAvailableCityGuides.addHeaderView(view);
@@ -96,8 +98,8 @@ public class AvailableCityGuidesFragment extends BaseFragment implements CustomL
     @Override
     public void onResume() {
         super.onResume();
-        homeFragmentListener.setTitle(getString(R.string.welcome_to_exploritage));
-        homeFragmentListener.setSubTitle(getString(R.string.heritage_personal_guide));
+        //homeFragmentListener.setTitle(getString(R.string.welcome_to_exploritage));
+        //homeFragmentListener.setSubTitle(getString(R.string.heritage_personal_guide));
     }
 
 
@@ -191,14 +193,25 @@ public class AvailableCityGuidesFragment extends BaseFragment implements CustomL
                     bundle.putSerializable(AppConstants.BUNDLE_KEYS.CITY_DATA, city);
                     startNextActivity(bundle, SiteDescriptionActivity.class);
                 } else {
-                    showToast("Coming Soon");
+//                   showToast("Coming Soon");
+                    openDialog();
                 }
             }
         }
     }
 
+
+
+    private void openDialog() {
+        final Dialog dialog = new Dialog(getActivity());
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.activity_dialog_package_name);
+        dialog.show();
+    }
+
     @Override
-    public View getView(int position, View convertView, ViewGroup parent, int resourceID, LayoutInflater inflater) {
+    public View getView(final int position, View convertView, ViewGroup parent, int resourceID, LayoutInflater inflater) {
         final Holder holder;
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.row_available_city_guides, parent, false);
@@ -217,8 +230,17 @@ public class AvailableCityGuidesFragment extends BaseFragment implements CustomL
             holder.ivCityImage.setImageResource(R.mipmap.placeholder);
         }
 
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onItemClick(null,view,position,0);
+            }
+        });
         return convertView;
     }
+
+
+
 
     class Holder {
 

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="300dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="18dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/curve_shape"
+            android:orientation="vertical">
+
+
+            <simplifii.framework.widgets.CustomFontTextView
+                android:id="@+id/tv_dialog_header"
+                style="@style/tv_style_white"
+                android:textSize="16dp"
+                android:layout_height="48dp"
+                android:background="@drawable/textview_top_curve_shape"
+                android:text="@string/standard_popup_name" />
+
+
+            <LinearLayout
+                android:id="@+id/ll_dialog_body"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <simplifii.framework.widgets.CustomFontTextView
+                    style="@style/tv_style_black"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/body_text_information_nbody_text_information_nbody_text_information_nbody_text_information_nbody_text_information" />
+
+                <simplifii.framework.widgets.CustomFontTextView
+                    style="@style/tv_style_black"
+                    android:layout_marginTop="32dp"
+                    android:text="Highlighted text, If any"
+                    android:textSize="18dp" />
+
+                <simplifii.framework.widgets.CustomFontButton
+                    style="@style/btn_style"
+
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:background="@mipmap/wireframes_final_31"
+                    android:text="@string/button" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+    <ImageView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:src="@mipmap/wireframes_final_38" />
+
+
+
+</RelativeLayout>

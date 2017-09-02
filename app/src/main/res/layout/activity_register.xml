@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+     android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/layout_root_background_black"
+        android:padding="@dimen/padding_20dp">
+
+
+    
+    <simplifii.framework.widgets.CustomFontTextView
+        android:id="@+id/tv_register"
+        style="@style/tv_style_white"
+        android:text="@string/register"
+        android:layout_marginTop="@dimen/margin_16dp"
+        android:layout_marginBottom="@dimen/margin_16dp"/>
+
+    <ImageView
+        android:id="@+id/exportigo_image"
+        android:layout_below="@id/tv_register"
+        android:layout_width="135dp"
+        android:layout_height="135dp"
+        android:src="@drawable/bg_splash_exploritage"
+        android:layout_centerHorizontal="true"/>
+
+   <android.support.design.widget.TextInputLayout
+       android:id="@+id/tv_username"
+       style="@style/TextInputLayoutStyle"
+       android:layout_marginTop="@dimen/margin_16dp"
+       android:theme="@style/TextInputLayoutTheme"
+       android:layout_below="@+id/exportigo_image">
+
+       <simplifii.framework.widgets.CustomFontEditText
+           style="@style/et_style"
+           android:id="@+id/et_name"
+           android:hint="@string/name"
+           android:inputType="text"
+           />
+   </android.support.design.widget.TextInputLayout>
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/tv_phone_number"
+        style="@style/TextInputLayoutStyle"
+        android:theme="@style/TextInputLayoutTheme"
+        android:layout_marginBottom="@dimen/margin_8dp"
+        android:layout_below="@id/tv_username">
+
+        <simplifii.framework.widgets.CustomFontEditText
+            style="@style/et_style"
+            android:id="@+id/et_phone_number"
+            android:hint="@string/phone_number"
+            android:inputType="phone"
+            />
+    </android.support.design.widget.TextInputLayout>
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/tv_password"
+        android:layout_below="@+id/tv_phone_number"
+        style="@style/TextInputLayoutStyle"
+        android:theme="@style/TextInputLayoutTheme"
+        android:layout_marginBottom="@dimen/margin_8dp">
+
+        <simplifii.framework.widgets.CustomFontEditText
+            style="@style/et_style"
+            android:id="@+id/et_password"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            />
+    </android.support.design.widget.TextInputLayout>
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/tv_confirm_password"
+        android:layout_below="@id/tv_password"
+        style="@style/match_wrap"
+        android:theme="@style/TextInputLayoutTheme"
+        android:layout_marginBottom="@dimen/margin_8dp">
+
+        <simplifii.framework.widgets.CustomFontEditText
+            style="@style/et_style"
+            android:id="@+id/et_confirm_password"
+            android:hint="@string/confirm_password"
+            android:inputType="textPassword"
+            />
+    </android.support.design.widget.TextInputLayout>
+
+    <simplifii.framework.widgets.CustomFontButton
+        android:id="@+id/button_sign_up"
+        android:layout_below="@id/tv_confirm_password"
+        style="@style/btn_style"
+        android:text="@string/sign_me_up" />
+
+    <LinearLayout
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_12dp"
+        android:orientation="horizontal"
+        android:layout_below="@id/button_sign_up"
+        android:layout_centerHorizontal="true">
+
+        <simplifii.framework.widgets.CustomFontTextView
+            android:id="@+id/customFontTextView"
+            style="@style/tv_style_white"
+            android:layout_width="wrap_content"
+            android:textSize="12dp"
+            android:text="@string/already_a_member" />
+
+        <simplifii.framework.widgets.CustomFontTextView
+                style="@style/tv_style_white"
+                android:textSize="12dp"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_toRightOf="@id/customFontTextView"
+                android:text="@string/login_here"
+                android:textColor="#424242"
+                 />
+        </LinearLayout>
+    </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>

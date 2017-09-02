@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/lay_navigation"
+        android:layout_width="250dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <simplifii.framework.widgets.CustomFontTextView
+            android:id="@+id/tv_heading"
+            style="@style/tv_heading"
+            android:padding="18dp"
+            android:text="@string/welcome_user_name"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/color_view_bg_grey" />
+
+
+        <simplifii.framework.widgets.CustomFontTextView
+            android:id="@+id/tv_about"
+            style="@style/subtitle_text"
+            android:text="@string/about_exploritage" />
+
+        <simplifii.framework.widgets.CustomFontTextView
+            android:id="@+id/tv_my_destination"
+            style="@style/subtitle_text"
+            android:background="@color/color_view_bg_grey"
+            android:text="@string/my_destinations" />
+
+        <simplifii.framework.widgets.CustomFontTextView
+            android:id="@+id/my_audio_downloads"
+            style="@style/subtitle_text"
+
+            android:text="@string/my_audio_downloads" />
+
+        <simplifii.framework.widgets.CustomFontTextView
+            android:id="@+id/packages"
+            style="@style/subtitle_text"
+            android:background="@color/color_view_bg_grey"
+            android:text="@string/packages" />
+
+        <simplifii.framework.widgets.CustomFontTextView
+            android:id="@+id/my_audio_guide"
+            style="@style/subtitle_text"
+
+            android:text="@string/my_audio_guide" />
+
+        <simplifii.framework.widgets.CustomFontTextView
+            android:id="@+id/tv_share_app"
+            style="@style/subtitle_text"
+            android:background="@color/color_view_bg_grey"
+            android:text="@string/shareapp" />
+
+        <simplifii.framework.widgets.CustomFontTextView
+            android:id="@+id/tv_feedback"
+            style="@style/subtitle_text"
+
+            android:text="@string/feedback" />
+
+        <simplifii.framework.widgets.CustomFontTextView
+            android:id="@+id/what_s_new"
+            style="@style/subtitle_text"
+            android:background="@color/color_view_bg_grey"
+            android:text="@string/what_s_new" />
+
+        <simplifii.framework.widgets.CustomFontTextView
+            android:id="@+id/faq_s"
+            style="@style/subtitle_text"
+            android:text="@string/faq_s" />
+
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="18dp">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/curve_shape"
+            android:orientation="vertical"
+            android:padding="2dp">
+
+            <simplifii.framework.widgets.CustomFontTextView
+                style="@style/tv_style_white"
+                android:background="@drawable/textview_top_curve_shape"
+                android:padding="12dp"
+                android:text="@string/want_to_download"
+                android:textSize="16dp" />
+
+
+            <LinearLayout style="@style/ll_bg_white">
+
+                <simplifii.framework.widgets.CustomFontTextView
+                    style="@style/tv_style_black"
+                    android:textStyle="bold"
+                    android:layout_marginTop="6dp"
+                    android:text="@string/hear_the_audio_at_your_own_pace_just_download_the_audio_for_uninterrupted_and_offline_usage" />
+
+                <simplifii.framework.widgets.CustomFontTextView
+                    style="@style/tv_style_black"
+                    android:textSize="20dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Price : Rs 88888888" />
+
+
+                <simplifii.framework.widgets.CustomFontButton
+
+                    style="@style/button_dialog_buy"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@mipmap/wireframes_final_31"
+                    android:text="@string/buy" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/ll_dialog_bg_grey"
+                android:orientation="vertical">
+
+                <simplifii.framework.widgets.CustomFontTextView
+                    style="@style/tv_style_black"
+                    android:layout_marginBottom="@dimen/margin_10dp"
+                    android:text="@string/are_you_planning_a_group_tour_nsee_our_packages_to_help_the_whole_group"
+                    android:textColor="@color/dark_gray" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+
+                    android:weightSum="10">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5"
+                        android:background="@mipmap/wireframes_final_33"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <simplifii.framework.widgets.CustomFontTextView
+                            style="@style/tv_style_different_text_size"
+                            android:textColor="@color/orange"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/single_person" />
+
+                        <simplifii.framework.widgets.CustomFontTextView
+                            style="@style/tv_style_different_text_size"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/rs_100"
+                            />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5"
+                        android:background="@mipmap/wireframes_final_33"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <simplifii.framework.widgets.CustomFontTextView
+                            style="@style/tv_style_different_text_size"
+                            android:layout_width="match_parent"
+                            android:textColor="@color/orange"
+                            android:layout_height="wrap_content"
+                            android:text="@string/pack_for_2" />
+
+                        <simplifii.framework.widgets.CustomFontTextView
+                            style="@style/tv_style_different_text_size"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/rs_120"
+                             />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5"
+                        android:background="@mipmap/wireframes_final_33"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <simplifii.framework.widgets.CustomFontTextView
+                            style="@style/tv_style_different_text_size"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/orange"
+                            android:text="@string/team_of_5" />
+
+                        <simplifii.framework.widgets.CustomFontTextView
+                            style="@style/tv_style_different_text_size"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/rs_150"
+                             />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5"
+                        android:background="@mipmap/wireframes_final_33"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <simplifii.framework.widgets.CustomFontTextView
+                            style="@style/tv_style_different_text_size"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/orange"
+                            android:text="@string/group_of_10" />
+
+                        <simplifii.framework.widgets.CustomFontTextView
+                            style="@style/tv_style_different_text_size"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/rs_250"
+                             />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="2dp"
+        android:layout_marginTop="2dp"
+        android:src="@mipmap/wireframes_final_38" />
+
+</RelativeLayout>

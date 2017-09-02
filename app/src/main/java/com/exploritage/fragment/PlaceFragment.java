@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.exploritage.R;
 import com.exploritage.activity.CityDetailActivity;
+import com.exploritage.activity.SiteDescriptionActivity;
 import com.exploritage.model.responses.CityDetail;
 import com.exploritage.model.responses.Datum;
 import com.exploritage.model.responses.place.PlaceData;
@@ -36,20 +37,19 @@ import simplifii.framework.utility.AppConstants;
 import simplifii.framework.utility.JsonUtil;
 import simplifii.framework.utility.Preferences;
 
-/**
- * Created by ajay on 21/2/17.
- */
 public class PlaceFragment extends BaseFragment implements CustomListAdapterInterface, AdapterView.OnItemClickListener {
 
     private ArrayList<PlaceData> placesList;
     private CustomListAdapter adapter;
-    private Datum city;
     private TextView tvNoSubsiteFound;
     private ProgressBar progressBar;
+    private Datum city;
+    private PlaceToVisitResponse placeToVisitResponse;
 
 
-    public static PlaceFragment getInstance(Datum city) {
+    public static PlaceFragment getInstance(Datum city, PlaceToVisitResponse placeToVisitResponse) {
         PlaceFragment fragment = new PlaceFragment();
+        fragment.placeToVisitResponse=placeToVisitResponse;
         fragment.city = city;
         return fragment;
     }
@@ -65,15 +65,49 @@ public class PlaceFragment extends BaseFragment implements CustomListAdapterInte
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(this);
 
-//        listView.setEmptyView(tvNoSubsiteFound);
-        String objectId = city.getObjectId();
-        PlaceToVisitResponse placeToVisitResponse = PlaceToVisitResponse.getInstance(objectId);
         setPlacesList(placeToVisitResponse);
+//        listView.setEmptyView(tvNoSubsiteFound);
+//        String objectId = city.getObjectId();
+//        PlaceToVisitResponse placeToVisitResponse = PlaceToVisitResponse.getInstance(objectId);
+//        setPlacesList(placeToVisitResponse);
+//
+//
+//        //Getting updated data.
+//        if (city != null) {
+//            getPlaceToVisitApi(city);
+//        }
 
 
-        //Getting updated data.
-        if (city != null) {
-            getPlaceToVisitApi(city);
+    }
+
+
+    private void getPlaceToVisitApi(Datum city) {
+        String objectId = city.getObjectId();
+        if (!TextUtils.isEmpty(objectId)) {
+            HttpParamObject httpParamObject = ApiGenerator.getPlace(objectId);
+            executeTask(AppConstants.TASK_CODES.PLACES_TO_VISIT, httpParamObject);
+        }
+    }
+
+    @Override
+    public void onPostExecute(Object response, int taskCode, Object... params) {
+        super.onPostExecute(response, taskCode, params);
+
+        if (null == response) {
+            showToast(getResources().getString(R.string.no_response));
+            return;
+        }
+
+        switch (taskCode) {
+            case AppConstants.TASK_CODES.PLACES_TO_VISIT:
+                placeToVisitResponse = (PlaceToVisitResponse) response;
+                if (placeToVisitResponse != null) {
+                    Preferences.saveData(AppConstants.PREF_KEYS.KEY_CITY_DESTINATION_DATA,placeToVisitResponse.toString());
+                    setPlacesList(placeToVisitResponse);
+                    savePlaceData(placeToVisitResponse);
+                }
+
+                break;
         }
     }
 
@@ -84,13 +118,6 @@ public class PlaceFragment extends BaseFragment implements CustomListAdapterInte
         return null;
     }
 
-    private void getPlaceToVisitApi(Datum city) {
-        String objectId = city.getObjectId();
-        if (!TextUtils.isEmpty(objectId)) {
-            HttpParamObject httpParamObject = ApiGenerator.getPlace(objectId);
-            executeTask(AppConstants.TASK_CODES.PLACES_TO_VISIT, httpParamObject);
-        }
-    }
 
     private void savePlaceData(PlaceToVisitResponse placeToVisitResponse) {
         if (placeToVisitResponse != null) {
@@ -108,25 +135,6 @@ public class PlaceFragment extends BaseFragment implements CustomListAdapterInte
     @Override
     public void hideProgressBar() {
         progressBar.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void onPostExecute(Object response, int taskCode, Object... params) {
-        super.onPostExecute(response, taskCode, params);
-
-        if (null == response) {
-            showToast(getResources().getString(R.string.no_response));
-            return;
-        }
-
-        switch (taskCode) {
-            case AppConstants.TASK_CODES.PLACES_TO_VISIT:
-
-                PlaceToVisitResponse placeToVisitResponse = (PlaceToVisitResponse) response;
-                savePlaceData(placeToVisitResponse);
-                setPlacesList(placeToVisitResponse);
-                break;
-        }
     }
 
 
@@ -219,6 +227,7 @@ public class PlaceFragment extends BaseFragment implements CustomListAdapterInte
         PlaceData placeData = placesList.get(position);
         Bundle bundle = new Bundle();
         bundle.putSerializable(AppConstants.BUNDLE_KEYS.PLACE_DATA, placeData);
+        bundle.putSerializable(AppConstants.BUNDLE_KEYS.CITY_DETAIL,city);
         startNextActivity(bundle, CityDetailActivity.class);
     }
 

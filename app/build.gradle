@@ -10,6 +10,7 @@ buildscript {
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
 
+
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.1"
@@ -19,6 +20,7 @@ android {
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -26,6 +28,11 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    packagingOptions {
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE-FIREBASE.txt'
+        exclude 'META-INF/NOTICE'
     }
 }
 
@@ -53,13 +60,19 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.0.1'
-    testCompile 'junit:junit:4.12'
+
     compile project(':framework')
-    compile 'com.github.halilozercan:BetterVideoPlayer:1.0.0'
-    compile 'com.github.mkaflowski:HybridMediaPlayer:1.0'
-    compile 'com.github.oxoooo:touch-image-view:1.0.1'
     compile('com.crashlytics.sdk.android:crashlytics:2.6.7@aar') {
         transitive = true;
     }
+
+    compile 'com.ms-square:expandableTextView:0.1.4'
+    compile 'com.github.halilozercan:BetterVideoPlayer:1.0.0'
+    compile 'com.github.mkaflowski:HybridMediaPlayer:1.0'
+    compile 'com.github.oxoooo:touch-image-view:1.0.1'
+    compile 'com.google.android.gms:play-services:11.0.2'
+    compile 'com.github.AndroidDeveloperLB:AutoFitTextView:4'
+    testCompile 'junit:junit:4.12'
+
 }
+apply plugin: 'com.google.gms.google-services'

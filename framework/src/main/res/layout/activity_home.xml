@@ -35,7 +35,7 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header"
-        app:menu="@menu/drawer_view"/>-->
+        app:menu_destination="@menu_destination/drawer_view"/>-->
     <FrameLayout
         android:id="@+id/nav_view"
         android:layout_width="300dp"

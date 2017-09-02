@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="400dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="18dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/curve_shape"
+            android:orientation="vertical"
+            android:padding="2dp">
+
+
+            <simplifii.framework.widgets.CustomFontTextView
+                style="@style/tv_style_white"
+                android:layout_height="48dp"
+                android:textSize="@dimen/margin_16dp"
+                android:background="@drawable/textview_top_curve_shape"
+                android:text="@string/delete_download" />
+
+
+
+            <LinearLayout
+                style="@style/ll_bg_white"
+                >
+
+                <simplifii.framework.widgets.CustomFontTextView
+                    style="@style/tv_style_black"
+                    android:layout_marginTop="72dp"
+                    android:text="@string/are_you_sure_you_want_to_ndelete_the_downloads" />
+
+                <simplifii.framework.widgets.CustomFontButton
+                    style="@style/btn_style"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginBottom="@dimen/margin_10dp"
+                    android:layout_height="50dp"
+
+                    android:background="@mipmap/wireframes_final_29"
+                    android:layout_gravity="center"
+
+                    android:text="@string/ok" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <ImageView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="4dp"
+        android:src="@mipmap/wireframes_final_38" />
+
+
+
+</RelativeLayout>

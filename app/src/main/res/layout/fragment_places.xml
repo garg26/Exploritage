@@ -15,8 +15,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="@color/full_transparent"
-        android:dividerHeight="8dp"
-        android:padding="8dp"
         android:scrollbars="none" />
 
     <simplifii.framework.widgets.CustomFontTextView

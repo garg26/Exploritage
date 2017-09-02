@@ -24,7 +24,7 @@ public class HowToUseActivity extends BaseActivity implements HomeFragmentListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_how_to_use);
         initToolBar("How To Use");
-
+        showingBannerAds(R.id.adView);
         HowToUseFragment howToUseFragment = HowToUseFragment.getInstance(this);
         addFragment(howToUseFragment, false);
 
@@ -47,4 +47,10 @@ public class HowToUseActivity extends BaseActivity implements HomeFragmentListen
     public void setSubTitle(String subtitle) {
 
     }
+    @Override
+    protected void onHomePressed() {
+
+    }
+
+
 }

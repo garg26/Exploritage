@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
@@ -25,6 +24,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 import java.util.ArrayList;
 
@@ -63,6 +64,7 @@ public class BaseActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
 //        getSupportActionBar().hide();
         super.onCreate(savedInstanceState);
+
         // initActionBar();
         taskFragment = new TaskFragment();
         getSupportFragmentManager().beginTransaction().add(taskFragment, "task").commit();
@@ -86,11 +88,27 @@ public class BaseActivity extends AppCompatActivity implements
         super.onPostCreate(savedInstanceState);
     }
 
+
     protected void initWindow() {
         Window window = this.getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         getWindow().setBackgroundDrawableResource(R.color.white);
+    }
+
+    public void initToolBarwithIcon(String title) {
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(title);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(getHomeIcon());
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+
+//       toolbar.setBackgroundColor(colorCode);
+
+        toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.color_title));
     }
 
     @Override
@@ -108,6 +126,11 @@ public class BaseActivity extends AppCompatActivity implements
 
     }
 
+    protected void showingBannerAds(int id) {
+        AdView adView = (AdView) findViewById(id);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
+    }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -291,25 +314,13 @@ public class BaseActivity extends AppCompatActivity implements
         getSupportActionBar().setHomeAsUpIndicator(getHomeIcon());
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-
-
-//        toolbar.setBackgroundColor(colorCode);
-        setStatusBarColor(getResourceColor(R.color.colorPrimaryDark));
         toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.color_title));
     }
 
     protected int getHomeIcon() {
-        return 0;
+        return R.mipmap.wireframes_final_44;
     }
 
-    protected void setStatusBarColor(int color) {
-        if (Build.VERSION.SDK_INT >= 21) {
-            Window window = getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            window.setStatusBarColor(color);
-        }
-    }
 
     public void onRetryClicked(View view, int taskCode) {
         if (Util.isConnectingToInternet(this)) {
@@ -323,6 +334,7 @@ public class BaseActivity extends AppCompatActivity implements
             case android.R.id.home:
                 onHomePressed();
                 return true;
+
         }
         return false;
     }

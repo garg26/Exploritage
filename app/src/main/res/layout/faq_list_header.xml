@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll_faq_list_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="2dp"
+        android:weightSum="10">
+
+        <simplifii.framework.widgets.CustomFontTextView
+            android:id="@+id/tv_header_name"
+            style="@style/tv_heading_without_background"
+            android:layout_weight="9"
+            android:gravity="start"
+            android:text="header 1"
+            android:paddingLeft="16dp"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp"
+            android:textColor="@color/light_grey" />
+
+        <ImageView
+            android:layout_gravity="center_vertical"
+            android:id="@+id/iv_arrow"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginRight="6dp"
+            android:layout_weight="1"
+            android:src="@drawable/arrow_navigate_up_black" />
+
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1.5dp"
+        android:layout_below="@id/ll_faq_list_header"
+        android:background="@color/orange" />
+
+</RelativeLayout>

@@ -10,9 +10,11 @@ import android.widget.Toast;
 
 import com.exploritage.R;
 import com.exploritage.activity.SiteDescriptionActivity;
+import com.exploritage.model.DownloadDestinationInformation;
 import com.exploritage.model.responses.CityDetail;
 import com.exploritage.model.responses.Datum;
 import com.exploritage.model.responses.place.PlaceData;
+import com.exploritage.sqlite.CityDetaildatabase;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -31,6 +33,7 @@ public class DownloadFileService extends AsyncTask<List<PlaceData>, Void, Void> 
     private String cityId;
     private Datum city;
     private WeakReference<TextView> downloadingTextView;
+    private CityDetaildatabase cityDetaildatabase;
 
     public DownloadFileService(List<PlaceData> subcityDetailList, Context ctx, Datum city) {
         this.subcityDetailList = subcityDetailList;
@@ -38,6 +41,8 @@ public class DownloadFileService extends AsyncTask<List<PlaceData>, Void, Void> 
         this.city = city;
         TextView tv = (TextView) ((Activity) ctx).findViewById(R.id.tv_downloading);
         tv.setVisibility(View.VISIBLE);
+
+        cityDetaildatabase = new CityDetaildatabase(ctx);
         downloadingTextView = new WeakReference<TextView>(tv);
         cityId = city.getObjectId();
     }
@@ -46,12 +51,17 @@ public class DownloadFileService extends AsyncTask<List<PlaceData>, Void, Void> 
     protected Void doInBackground(List<PlaceData>... params) {
         for (int i = 0; i < params[0].size(); i++) {
             PlaceData placeDetail = (PlaceData) params[0].get(i);
-            String fileName = Preferences.getData(AppConstants.PREF_KEYS.KEY_AUDIO_FILE + placeDetail.getAudiourl(), "");
-
-            if (!TextUtils.isEmpty(placeDetail.getAudiourl()) && TextUtils.isEmpty(Preferences.getData(AppConstants.PREF_KEYS.KEY_AUDIO_FILE + placeDetail.getAudiourl(), ""))) {
-                Preferences.saveData(AppConstants.PREF_KEYS.KEY_AUDIO_FILE + placeDetail.getAudiourl(),
-                        DownloadFileUtil.downloadAudioFile(placeDetail.getAudiourl(), placeDetail.getName()));
+            DownloadDestinationInformation detailByDestinationID = cityDetaildatabase.getDetailByDestinationID(placeDetail.getName());
+            if (detailByDestinationID == null) {
+                DownloadFileUtil.downloadAudioFile(placeDetail.getAudiourl(), placeDetail.getName());
             }
+
+            // String fileName = Preferences.getData(AppConstants.PREF_KEYS.KEY_AUDIO_FILE + placeDetail.getAudiourl(), "");
+
+            //if (!TextUtils.isEmpty(placeDetail.getAudiourl()) && TextUtils.isEmpty(Preferences.getData(AppConstants.PREF_KEYS.KEY_AUDIO_FILE + placeDetail.getAudiourl(), ""))) {
+            // Preferences.saveData(AppConstants.PREF_KEYS.KEY_AUDIO_FILE + placeDetail.getAudiourl(),
+            //   DownloadFileUtil.downloadAudioFile(placeDetail.getAudiourl(), placeDetail.getName()));
+            // }
         }
         return null;
     }

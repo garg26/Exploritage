@@ -40,7 +40,7 @@ public class PicassoUtil {
         return pic;
     }
 
-    public static void loadImage(Context context, String imageUrl, ImageView imageView, int placeholder) {
+    public static void  loadImage(Context context, String imageUrl, ImageView imageView, int placeholder) {
         String imageFileName = Preferences.getData(imageUrl, null);
         if (!TextUtils.isEmpty(imageFileName)) {
             File imageFile = new File(imageFileName);

@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -12,9 +14,8 @@ import com.exploritage.R;
 import com.exploritage.fragment.CityFragment;
 import com.exploritage.model.responses.CityDetail;
 import com.exploritage.model.responses.CityDetailsResponse;
+import com.exploritage.model.responses.Datum;
 import com.exploritage.model.responses.place.PlaceData;
-import com.exploritage.model.responses.place.PlaceToVisitResponse;
-import com.exploritage.service.SaveImageOnExternalStorageService;
 import com.exploritage.util.ApiGenerator;
 
 import java.util.ArrayList;
@@ -36,41 +37,69 @@ public class CityDetailActivity extends BaseActivity {
     private ArrayList<CityDetail> cityDetailList;
     private ProgressBar progressBar;
     private TextView tvTitle;
-    private CityDetail cityDetailHolder;
-
+    private Datum city;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_city_details);
+        initToolBarwithIcon("");
+
+        TextView iv_title_name = (TextView) findViewById(R.id.tv_title_name);
         cityDetailList = new ArrayList<>();
         progressBar = (ProgressBar) findViewById(R.id.progressbar);
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             placeData=(PlaceData) bundle.getSerializable(AppConstants.BUNDLE_KEYS.PLACE_DATA);
-            cityDetailHolder= placeData.getCityDetailObject();
+            city = (Datum) bundle.getSerializable(AppConstants.BUNDLE_KEYS.CITY_DETAIL);
+            CityDetail cityDetailHolder = placeData.getCityDetailObject();
             String placeName = placeData.getName();
             if (!TextUtils.isEmpty(placeName)) {
-                initToolBar(placeName);
+                iv_title_name.setText(placeName);
+
             }
             addCityFragment();
         }
+        showingBannerAds(R.id.adView);
+        setOnClickListener(R.id.iv_back);
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.iv_back:
+                onBackPressed();
+                break;
+        }
+    }
 
-//    @Override
+    //    @Override
 //    protected void onPostCreate(Bundle savedInstanceState) {
 //        super.onPostCreate(savedInstanceState);
 //        getCityDetailsAPI(placeData);
 //    }
 
+
     private void addCityFragment() {
         Fragment fragment = CityFragment.getInstance();
         Bundle bundle = new Bundle();
-        bundle.putSerializable(AppConstants.BUNDLE_KEYS.CITY_DETAIL, placeData.getCityDetailObject());
+        bundle.putSerializable(AppConstants.BUNDLE_KEYS.CITY_DETAIL,city);
+        bundle.putSerializable(AppConstants.BUNDLE_KEYS.PLACE_DATA, placeData);
         fragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction().replace(R.id.lay_fragment_container, fragment).commit();
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_destination, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return super.onOptionsItemSelected(item);
+
     }
 
     private void getCityDetailsAPI(PlaceData placeData) {
@@ -129,7 +158,12 @@ public class CityDetailActivity extends BaseActivity {
         }
     }
 
-//    private void saveImagesLocally(){
+    @Override
+    protected void onHomePressed() {
+
+    }
+
+    //    private void saveImagesLocally(){
 //        ArrayList<String> imageUrlList=new ArrayList<>();
 //        ArrayList<String> mapUrlList=new ArrayList<>();
 //        for(CityDetail cityDetail:cityDetailList){
